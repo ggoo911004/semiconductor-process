@@ -1,1 +1,316 @@
-# semiconductor-process
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>半導體微影製程基礎教學</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slides-container {
+            width: 80%;
+            height: 80%;
+            background-color: #1e293b;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            flex-direction: row;
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+        .slide.title-slide {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .content-left {
+            flex: 1;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .content-right {
+            flex: 1;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-left: 1px solid #334155;
+        }
+        h1 {
+            color: #38bdf8;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #7dd3fc;
+            font-size: 2em;
+            margin-top: 0;
+            border-bottom: 2px solid #38bdf8;
+            padding-bottom: 10px;
+        }
+        ul {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        li {
+            margin-bottom: 15px;
+        }
+        .metaphor {
+            background-color: #334155;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #fbbf24;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        .placeholder-img {
+            width: 80%;
+            height: 60%;
+            background-color: #475569;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #94a3b8;
+            font-style: italic;
+            border: 2px dashed #64748b;
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+        button {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #0284c7;
+        }
+        button:disabled {
+            background-color: #64748b;
+            cursor: not-allowed;
+        }
+        .page-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slides-container">
+    
+    <!-- 第 1 頁：封面 -->
+    <div class="slide title-slide active" id="slide-1">
+        <h1>半導體奇幻旅程</h1>
+        <p style="font-size: 1.5em; color: #94a3b8;">把沙子變成智慧晶片的魔法</p>
+        <p style="margin-top: 50px;">作者：莊旻軒</p>
+    </div>
+
+    <!-- 第 2 頁：長晶與切片 -->
+    <div class="slide" id="slide-2">
+        <div class="content-left">
+            <h2>晶圓製造：從沙子到畫布</h2>
+            <ul>
+                <li>將沙子（石英）提煉並拉成純度極高的單晶矽棒。</li>
+                <li>主流技術「CZ 法（直拉法）」：在高溫坩堝中慢慢拉出大尺寸晶棒。</li>
+                <li>將晶棒切割成薄片，就成了「晶圓」。</li>
+            </ul>
+            <div class="metaphor">
+                💡 就像做拔絲地瓜或拉糖，師傅精準控制火候，拉出完美的糖柱。切成薄片後，就是我們未來要畫電路圖的「空白畫布」。
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="placeholder-img">
+                (示意圖：CZ 法拉晶棒 / ./assets/images/cz_process.png)
+            </div>
+        </div>
+    </div>
+
+    <!-- 第 3 頁：熱製程 -->
+    <div class="slide" id="slide-3">
+        <div class="content-left">
+            <h2>熱製程：氧化與擴散</h2>
+            <ul>
+                <li>在高溫爐管中進行，是晶圓加工的基礎。</li>
+                <li>**氧化**：在晶圓表面長出二氧化矽當保護層或絕緣層。</li>
+                <li>**擴散**：將摻雜物（硼或磷）打入矽基板，改變局部導電性。</li>
+            </ul>
+            <div class="metaphor">
+                💡 氧化就像「烤土司」，放進高溫烤箱烤出一層酥脆保護殼。<br>
+                💡 擴散就像「醃肉」，把調味料撒在表面，透過高溫滲透進肉裡改變性質。
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="placeholder-img">
+                (示意圖：高溫爐管 / ./assets/images/furnace.png)
+            </div>
+        </div>
+    </div>
+
+    <!-- 第 4 頁：微影製程 -->
+    <div class="slide" id="slide-4">
+        <div class="content-left">
+            <h2>微影製程：印上電路圖</h2>
+            <ul>
+                <li>將設計好的圖案轉印到晶圓上，佔據近一半的製程時間。</li>
+                <li>步驟包含：塗佈光阻 ➔ 對準與曝光 ➔ 顯影。</li>
+                <li>正光阻曝光後可洗掉，負光阻曝光後會保留。</li>
+            </ul>
+            <div class="metaphor">
+                💡 完全就是「洗相片」！把電路圖當底片（光罩），用手電筒（曝光機）把圖案曬在塗滿感光顏料的畫布（光阻）上，泡顯影液後電路圖就浮現了。
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="placeholder-img">
+                (示意圖：曝光顯影流程 / ./assets/images/lithography.png)
+            </div>
+        </div>
+    </div>
+
+    <!-- 第 5 頁：蝕刻與電漿 -->
+    <div class="slide" id="slide-5">
+        <div class="content-left">
+            <h2>蝕刻與電漿：精準雕刻</h2>
+            <ul>
+                <li>利用電漿中的自由基（化學）或離子（物理）移除材料。</li>
+                <li>只會挖除「沒有被光阻保護」的區域。</li>
+                <li>電漿是在低壓真空中通入射頻功率產生。</li>
+            </ul>
+            <div class="metaphor">
+                💡 就像是「高科技噴砂機」。沒有被光阻（保護膜）蓋住的地方，就會被無情地噴挖掉，精準刻出微小的溝槽。
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="placeholder-img">
+                (示意圖：電漿蝕刻原理 / ./assets/images/plasma_etch.png)
+            </div>
+        </div>
+    </div>
+
+    <!-- 第 6 頁：沉積與平坦化 -->
+    <div class="slide" id="slide-6">
+        <div class="content-left">
+            <h2>沉積(CVD)與平坦化(CMP)</h2>
+            <ul>
+                <li>**CVD 薄膜沉積**：生長介電質（絕緣）或金屬導線。</li>
+                <li>**CMP 化學機械研磨**：徹底磨平晶圓表面，是先進製程必備技術。</li>
+            </ul>
+            <div class="metaphor">
+                💡 CVD 就像在微觀世界「蓋立體高架橋」，一層層鋪上水泥和管線。<br>
+                💡 CMP 就像「超級壓路機」，因為高架橋蓋完表面會凹凸不平，必須噴軟化劑再用壓路機磨平，才能繼續往上蓋。
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="placeholder-img">
+                (示意圖：CMP 壓路機概念 / ./assets/images/cmp_process.png)
+            </div>
+        </div>
+    </div>
+
+    <!-- 第 7 頁：封裝測試 -->
+    <div class="slide" id="slide-7">
+        <div class="content-left">
+            <h2>封裝與測試：穿上防護衣</h2>
+            <ul>
+                <li>**測試**：用探針檢測每顆晶粒的電性，標記不良品。</li>
+                <li>**封裝**：將晶圓切割成獨立晶粒，包裝保護並拉出接腳。</li>
+                <li>確保晶片能在惡劣環境中正常工作並與主機板連接。</li>
+            </ul>
+            <div class="metaphor">
+                💡 就像幫脆弱的晶片「穿上黑色防彈衣」（封裝），接上能與外界溝通的「神經」（接腳），確認它是個健康寶寶才准出廠。
+            </div>
+        </div>
+        <div class="content-right">
+            <div class="placeholder-img">
+                (示意圖：IC 封裝成品 / ./assets/images/packaging.png)
+            </div>
+        </div>
+    </div>
+
+    <div class="page-indicator">1 / 7</div>
+    
+    <div class="controls">
+        <button id="prevBtn" disabled>上一頁</button>
+        <button id="nextBtn">下一頁</button>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 1;
+    const totalSlides = 7;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicator = document.querySelector('.page-indicator');
+
+    function updateSlides() {
+        document.querySelectorAll('.slide').forEach(slide => {
+            slide.classList.remove('active');
+        });
+        document.getElementById('slide-' + currentSlide).classList.add('active');
+        
+        indicator.innerText = currentSlide + ' / ' + totalSlides;
+        
+        prevBtn.disabled = currentSlide === 1;
+        nextBtn.disabled = currentSlide === totalSlides;
+    }
+
+    nextBtn.addEventListener('click', () => {
+        if (currentSlide < totalSlides) {
+            currentSlide++;
+            updateSlides();
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentSlide > 1) {
+            currentSlide--;
+            updateSlides();
+        }
+    });
+</script>
+
+</body>
+</html>
